@@ -30,3 +30,9 @@ def stats() -> str:
 def raise_error() -> None:
     """raises an error by using abort"""
     abort(401)
+
+
+@app_views.route('/forbidden', strict_slashes=False)
+def forbidden() -> None:
+    """endpoint that raises a 403 error using abort"""
+    abort(403)
