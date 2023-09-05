@@ -40,8 +40,8 @@ def forbidden(error) -> str:
     return jsonify({"error": "Forbidden"}), 403
 
 
-# @app.before_request
-# def before():
+@app.before_request
+def before():
     """gets excuted first then a request is handeled"""
     if auth is None:
         pass
