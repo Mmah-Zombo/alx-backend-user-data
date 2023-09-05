@@ -17,6 +17,9 @@ class Auth:
         if excluded_paths is None or len(excluded_paths) == 0:
             return True
         stri = f"{path}/"
+        for each in excluded_paths:
+            if each.endswith('*'):
+                each = each[:-1]
         if path in excluded_paths or stri in excluded_paths:
             return False
         return True
