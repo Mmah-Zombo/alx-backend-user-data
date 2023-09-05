@@ -26,7 +26,7 @@ def stats() -> str:
     return jsonify(stats)
 
 
-@app_views.route('/api/v1/unauthorized', methods=['GET'], strict_slashes=False)
-def raise_error() -> str:
+@app_views.route('/unauthorized', methods=['GET'], strict_slashes=False)
+def raise_error() -> None:
     """raises an error by using abort"""
     abort(401)
