@@ -47,7 +47,7 @@ def before():
         excluded = ['/api/v1/status/', '/api/v1/unauthorized/',
                     '/api/v1/forbidden/']
         checker = auth.require_auth(request.path, excluded)
-        if checker == False:
+        if checker:
             auth_header = auth.authorization_header(request)
             auth_user = auth.current_user(request)
             if auth_header is None:
