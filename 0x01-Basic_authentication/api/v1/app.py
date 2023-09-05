@@ -43,21 +43,17 @@ def forbidden(error) -> str:
 @app.before_request
 def before():
     """gets excuted first then a request is handeled"""
-    if auth is None:
-        pass
-
-    excluded = ['/api/v1/status/', '/api/v1/unauthorized/',
-                '/api/v1/forbidden/']
-    checker = auth.require_auth(request.path, excluded)
-    if checker:
-        pass
-
-    auth_header = auth.authorization_header(request)
-    auth_user = auth.current_user(request)
-    if auth_header is None:
-        abort(401)
-    if auth_user is None:
-        abort(403)
+    if auth is not None:
+        excluded = ['/api/v1/status/', '/api/v1/unauthorized/',
+                    '/api/v1/forbidden/']
+        checker = auth.require_auth(request.path, excluded)
+        if checker == False:
+            auth_header = auth.authorization_header(request)
+            auth_user = auth.current_user(request)
+            if auth_header is None:
+                abort(401)
+            if auth_user is None:
+                abort(403)
 
 
 if __name__ == "__main__":
