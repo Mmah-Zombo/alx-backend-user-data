@@ -4,6 +4,9 @@
 from auth import Auth
 
 
-class BasicAuth:
+class BasicAuth(Auth):
     """basic authentication class"""
+
+    def __init__(self) -> None:
+        super().__init__()
     pass
