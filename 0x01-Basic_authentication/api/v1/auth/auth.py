@@ -12,7 +12,7 @@ class Auth:
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """returns a path"""
-        if (path is None):
+        if (path is None or path not in excluded_paths):
             return True
         if excluded_paths is None or len(excluded_paths) == 0:
             return True
