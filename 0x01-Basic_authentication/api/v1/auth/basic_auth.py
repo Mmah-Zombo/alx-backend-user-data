@@ -9,4 +9,3 @@ class BasicAuth(Auth):
 
     def __init__(self) -> None:
         super().__init__()
-    pass
