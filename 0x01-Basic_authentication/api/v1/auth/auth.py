@@ -19,7 +19,7 @@ class Auth:
         if path in excluded_paths:
             return False
 
-        return True
+        return False
 
     def authorization_header(self, request=None) -> str:
         """handles the authorization header"""
