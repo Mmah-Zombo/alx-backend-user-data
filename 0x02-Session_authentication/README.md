@@ -1,1 +1,1 @@
-we use cookies in here to do session authentication
+we authenticate before we authorize

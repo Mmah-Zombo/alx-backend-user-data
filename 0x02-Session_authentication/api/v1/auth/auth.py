@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """module that contains the authentication class
 """
-import os
 from flask import request
 from typing import List, TypeVar
 
@@ -33,13 +32,6 @@ class Auth:
             return None
         return request.headers.get("Authorization", None)
 
-    # def current_user(self, request=None) -> TypeVar('User'):
-    #     """gets the current user"""
-    #     return None
-
-    # def session_cookie(self, request=None):
-    #     """returns a cookie value from a request"""
-    #     if request is None:
-    #         return None
-    #     cookie_name = os.getenv('SESSION_NAME')
-    #     return request.cookies.get(cookie_name)
+    def current_user(self, request=None) -> TypeVar('User'):
+        """gets the current user"""
+        return None
