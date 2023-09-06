@@ -50,16 +50,30 @@ def before():
     """gets excuted first then a request is handeled"""
     if auth is not None:
         excluded = ['/api/v1/status/', '/api/v1/unauthorized/',
-                    '/api/v1/forbidden/', '/api/v1/auth_session/login/']
+                    '/api/v1/forbidden/']
         checker = auth.require_auth(request.path, excluded)
         if checker:
             auth_header = auth.authorization_header(request)
             request.current_user = auth.current_user(request)
-            auth_session = auth.session_cookie(request)
-            if auth_header is None and auth_session is None:
+            if auth_header is None:
                 abort(401)
             if request.current_user is None:
                 abort(403)
+
+# def before():
+#     """gets excuted first then a request is handeled"""
+#     if auth is not None:
+#         excluded = ['/api/v1/status/', '/api/v1/unauthorized/',
+#                     '/api/v1/forbidden/', '/api/v1/auth_session/login/']
+#         checker = auth.require_auth(request.path, excluded)
+#         if checker:
+#             auth_header = auth.authorization_header(request)
+#             request.current_user = auth.current_user(request)
+#             auth_session = auth.session_cookie(request)
+#             if auth_header is None and auth_session is None:
+#                 abort(401)
+#             if request.current_user is None:
+#                 abort(403)
 
 
 if __name__ == "__main__":
