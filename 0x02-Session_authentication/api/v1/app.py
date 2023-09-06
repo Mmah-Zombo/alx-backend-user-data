@@ -51,10 +51,10 @@ def before():
         checker = auth.require_auth(request.path, excluded)
         if checker:
             auth_header = auth.authorization_header(request)
-            auth_user = auth.current_user(request)
+            request.current_user = auth.current_user(request)
             if auth_header is None:
                 abort(401)
-            if auth_user is None:
+            if request.current_user is None:
                 abort(403)
 
 
