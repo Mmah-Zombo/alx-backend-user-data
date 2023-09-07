@@ -53,8 +53,8 @@ class SessionDBAuth(SessionExpAuth):
         try:
             user_session = UserSession.search({'session_id': session_id})
 
-            if len(user_session) < 0:
-                return False
+            # if len(user_session) < 0:
+            #     return False
             if user_session:
                 user_session[0].delete()
                 return True
