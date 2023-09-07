@@ -1,26 +1,29 @@
 #!/usr/bin/env python3
 import logging
-import re
+import os
+import mysql.connector
 
+PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class """
+    # ...
 
-    REDACTION = "***"
-    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
-    SEPARATOR = ";"
+# Other functions as before...
 
-    def __init__(self, fields):
-        super(RedactingFormatter, self).__init__(self.FORMAT)
-        self.fields = fields
+def main():
+    logger = get_logger()
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM users;")
+    
+    for row in cursor.fetchall():
+        filtered_row = {key: '***' if key in PII_FIELDS else value for key, value in row.items()}
+        logger.info("Filtered fields:\n%s", "\n".join(filtered_row.keys()))
+        logger.info("Data:\n%s", filtered_row)
 
-    def format(self, record: logging.LogRecord) -> str:
-        message = super(RedactingFormatter,
-                        self).format(record)
-        return filter_datum(self.fields,
-                            self.REDACTION, message, self.SEPARATOR)
+    cursor.close()
+    db.close()
 
-
-def filter_datum(fields, redaction, message, separator):
-    regex = re.compile(f'({separator.join(map(re.escape, fields))})')
-    return regex.sub(redaction, message)
+if __name__ == "__main__":
+    main()
