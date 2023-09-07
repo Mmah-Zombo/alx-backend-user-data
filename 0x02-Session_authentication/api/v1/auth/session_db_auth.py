@@ -57,4 +57,5 @@ class SessionDBAuth(SessionExpAuth):
                 user_session[0].remove()
                 return True
         except Exception:
-            return False
+            pass
+        return False
