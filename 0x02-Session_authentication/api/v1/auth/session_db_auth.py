@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Module that contains the SessionDBAuth class"""
-from api.v1.auth.session_exp_auth import SessionExpAuth
+from .session_exp_auth import SessionExpAuth
 from models.user_session import UserSession
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -34,8 +34,8 @@ class SessionDBAuth(SessionExpAuth):
 
             if user_session:
                 return user_session[0].user_id
-        except NoResultFound:
-            pass
+        except Exception:
+            return None
 
         return None
 
@@ -53,10 +53,10 @@ class SessionDBAuth(SessionExpAuth):
         try:
             user_session = UserSession.search({'session_id': session_id})
 
-            if user_session:
+            if user_session and len(user_session) > 0:
                 user_session[0].delete()
                 return True
-        except NoResultFound:
-            pass
-
-        return False
+            else:
+                return False
+        except Exception:
+            return False
