@@ -4,6 +4,6 @@ import re
 
 
 def filter_datum(fields, redaction, message, separator):
-    regex = '|'.join(map(re.escape, fields))
-    return re.sub(f'({regex}){re.escape(separator)}',
-                  redaction + separator, message)
+    """the filter_datum function"""
+    regex = re.compile(f'({separator.join(map(re.escape, fields))})')
+    return regex.sub(redaction, message)
